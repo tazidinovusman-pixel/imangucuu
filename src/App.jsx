@@ -8,6 +8,7 @@ import Study from './Pages/Study';
 import Profile from './Pages/Profile';
 import Auth from './Pages/Auth';
 import Welcome from './Pages/Welcome';
+import Admin from './Pages/Admin';
 
 function App() {
   const [session, setSession] = useState(null);
@@ -41,6 +42,7 @@ return (
               <Route path="profile" element={<Profile />} />
             </Route>
             <Route path="/auth" element={!session ? <Auth /> : <Navigate to="/" />} />
+            <Route path="/admin" element={session ? <Admin /> : <Navigate to="/auth" />} />
           </Routes>
         </div>
       </div>

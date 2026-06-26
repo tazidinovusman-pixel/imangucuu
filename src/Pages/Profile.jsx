@@ -8,10 +8,9 @@ const Profile = () => {
 
   useEffect(() => {
     const checkUser = async () => {
-      // Прямой запрос к Supabase за текущим пользователем
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        navigate('/auth'); // Если не залогинен — отправляем на вход
+        navigate('/auth');
       } else {
         setUser(user);
       }
@@ -32,6 +31,16 @@ const Profile = () => {
         {user.email[0].toUpperCase()}
       </div>
       <h2 className="text-xl font-semibold text-gray-800 mb-6">{user.email}</h2>
+      
+      {/* Кнопка Админки: видна только админу */}
+      {user.email === 'admin@gmail.com' && (
+        <button 
+          onClick={() => navigate('/admin')}
+          className="mb-6 w-full bg-red-500 text-white py-3 rounded-2xl font-bold hover:bg-red-600 transition"
+        >
+          Админ-панель
+        </button>
+      )}
       
       <div className="w-full bg-gray-50 p-6 rounded-2xl text-center">
         <h3 className="text-lg font-bold text-gray-700">Жыйынтыгыңыз:</h3>
