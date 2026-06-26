@@ -30,16 +30,17 @@ function App() {
   }} />;
 return (
     <Router>
-      {/* Главный контейнер для центрирования на ПК */}
       <div className="flex justify-center min-h-screen bg-gray-100">
         <div className="w-full max-w-md bg-white min-h-screen shadow-2xl relative">
           <Routes>
-            <Route path="/" element={<Layout />}>
+            {/* Если сессии нет, отправляем на Auth, иначе на Layout */}
+            <Route path="/" element={session ? <Layout /> : <Navigate to="/auth" />}>
               <Route index element={<Home />} />
               <Route path="quiz" element={<Quiz />} />
               <Route path="study" element={<Study />} />
               <Route path="profile" element={<Profile />} />
             </Route>
+            <Route path="/auth" element={!session ? <Auth /> : <Navigate to="/" />} />
           </Routes>
         </div>
       </div>
