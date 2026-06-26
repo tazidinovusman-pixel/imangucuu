@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { supabase } from './supabaseClient';
 import Layout from './components/Layout';
-import Home from './pages/Home';
-import Quiz from './pages/Quiz';
-import Study from './pages/Study';
-import Profile from './pages/Profile';
-import Auth from './pages/Auth';
-import Welcome from './pages/Welcome';
+import Home from './Pages/Home';
+import Quiz from './Pages/Quiz';
+import Study from './Pages/Study';
+import Profile from './Pages/Profile';
+import Auth from './Pages/Auth';
+import Welcome from './Pages/Welcome';
 
 function App() {
   const [session, setSession] = useState(null);
