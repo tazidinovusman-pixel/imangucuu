@@ -32,32 +32,63 @@ export default function Quiz() {
     }
   };
 
-  const saveResult = async (finalScore) => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-      await supabase.from('results').insert([
-        { user_id: user.id, title: selectedTest.title, score: finalScore, total_questions: selectedTest.questions.length }
-      ]);
-    }
-  };
+ const saveResult = async (finalScore) => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (view === 'menu') {
-    return (
-      <div className="p-6 max-w-md mx-auto">
-        <h1 className="text-2xl font-bold text-emerald-800 mb-6">Тесттер</h1>
-        <div className="grid gap-4">
-          {allTests.map((test) => (
-            <button key={test.id} onClick={() => startTest(test)} 
-              className="flex justify-between items-center w-full p-4 bg-white border border-emerald-100 rounded-2xl shadow-sm hover:border-emerald-500 transition">
-              <span className="font-medium text-emerald-900">{test.title}</span>
-              <div className="bg-emerald-600 p-2 rounded-lg text-white">▶</div>
-            </button>
-          ))}
-        </div>
-      </div>
-    );
+  if (!user) return;
+
+  const { error } = await supabase.from('results').insert([
+  {
+    user_id: user.id,
+    quiz_title: selectedTest.title,
+    score: finalScore
   }
+]);
 
+if (error) {
+  console.log(error);
+}
+
+  
+};
+
+ if (view === 'menu') {
+  return (
+    <div className="p-6 max-w-md mx-auto">
+      <h1 className="text-2xl font-bold text-emerald-900 mb-6 text-center tracking-wide">
+        Тесттер
+      </h1>
+
+      <div className="grid gap-4">
+        {allTests.map((test) => (
+          <button
+            key={test.id}
+            onClick={() => startTest(test)}
+            className="w-full flex items-center justify-between p-5 bg-white border border-gray-200 rounded-2xl shadow-sm
+                       hover:shadow-md hover:border-emerald-500 active:scale-[0.99] transition-all duration-200"
+          >
+            <div className="text-left">
+              <h2 className="text-base font-semibold text-gray-900">
+                {test.title}
+              </h2>
+
+              <p className="text-xs text-gray-500 mt-1">
+                {test.questions.length} суроо
+              </p>
+            </div>
+
+            <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-emerald-600 text-white text-sm font-bold
+                            group-hover:bg-emerald-700">
+              &gt;
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
   if (view === 'finished') {
     return (
       <div className="p-6 flex flex-col items-center justify-center min-h-screen text-center">

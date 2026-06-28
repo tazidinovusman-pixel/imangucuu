@@ -9,6 +9,7 @@ import Profile from './Pages/Profile';
 import Auth from './Pages/Auth';
 import Welcome from './Pages/Welcome';
 import Admin from './Pages/Admin';
+import Tournament from './Pages/Tournament';
 
 function App() {
   const [session, setSession] = useState(null);
@@ -41,6 +42,7 @@ return (
               <Route path="study" element={<Study />} />
               <Route path="profile" element={<Profile />} />
             </Route>
+            <Route path="/tournament" element={<Tournament />} />
             <Route path="/auth" element={!session ? <Auth /> : <Navigate to="/" />} />
             <Route path="/admin" element={session ? <Admin /> : <Navigate to="/auth" />} />
           </Routes>

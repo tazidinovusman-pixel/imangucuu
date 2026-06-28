@@ -70,7 +70,7 @@ useEffect(() => {
           <div className="space-y-4">
             {results.map((res, i) => (
               <div key={i} className="flex justify-between border-b border-slate-200 pb-2">
-                <span className="text-emerald-900 font-medium">{res.title}</span>
+               <span className="text-emerald-900 font-medium">{res.quiz_title}</span>
                 <span className="text-emerald-600 font-bold">{res.score} балл</span>
               </div>
             ))}
